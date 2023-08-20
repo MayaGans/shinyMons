@@ -90,7 +90,7 @@ pokeType <- function(input, output, session, types, selected) {
           column(
             width = 6,
             align = "left",
-            h5("Damages to:"), br(),
+            h4("Damages to:"), br(),
             HTML(paste0(tablerTag(name = "2X", rounded = FALSE, color = "green"), " ")),
             lapply(seq_along(double_damage_to), FUN = function(j) double_damage_to[[j]]), br(),
             HTML(paste0(tablerTag(name = "0.5X", rounded = FALSE, color = "red"), " ")),
