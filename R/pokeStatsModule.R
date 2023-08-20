@@ -88,10 +88,10 @@ pokeStats <- function(input, output, session, mainData, details, selected) {
       values = tagList(
         switch(
           details[[selected()]]$growth_rate$name,
-          "slow" = tablerProgress(value = 0, size = "xs", status = "danger"),
+          "slow" = tablerProgress(value = 0, size = "xs", status = "success"),
           "medium-slow" = tablerProgress(value = 25, size = "xs", status = "warning"),
           "medium" = tablerProgress(value = 60, size = "xs", status = "yellow"),
-          "fast" = tablerProgress(value = 90, size = "xs", status = "success")
+          "fast" = tablerProgress(value = 90, size = "xs", status = "danger")
         ),
         details[[selected()]]$capture_rate,
         details[[selected()]]$base_happiness,
@@ -106,7 +106,18 @@ pokeStats <- function(input, output, session, mainData, details, selected) {
         "Height in cm",
         "Weight in Kg",
         "Base Xp"
+      ),
+      title_size = c(
+        h1,
+        h2,
+        h1,
+        h4,
+        h3,
+        h2,
+        h6,
+        h1
       )
+
     )
   })
 
@@ -119,7 +130,7 @@ pokeStats <- function(input, output, session, mainData, details, selected) {
 
       tablerStatCard(
         value = basicStats()$values[[i]],
-        title = basicStats()$titles[[i]],
+        title = do.call(basicStats()$title_size[[i]], list(basicStats()$titles[[i]])),
         width = 12,
         trend = if (!is.na(trend)) trend else NULL
       )
@@ -132,13 +143,13 @@ pokeStats <- function(input, output, session, mainData, details, selected) {
     if (input$pokeBasicStats) {
       tagList(
         fluidRow(
-          column(width = 4, uiOutput(ns("pokeHappy"))),
+          column(width = 3, uiOutput(ns("pokeHappy"))),
           column(width = 4, uiOutput(ns("pokeHeight"))),
-          column(width = 4, uiOutput(ns("pokeWeight")))
+          column(width = 5, uiOutput(ns("pokeWeight")))
         ),
         fluidRow(
-          column(width = 4, uiOutput(ns("baseXp"))),
-          column(width = 4, uiOutput(ns("pokeGrowth"))),
+          column(width = 2, uiOutput(ns("baseXp"))),
+          column(width = 6, uiOutput(ns("pokeGrowth"))),
           column(width = 4, uiOutput(ns("pokeCapture")))
         )
       )
